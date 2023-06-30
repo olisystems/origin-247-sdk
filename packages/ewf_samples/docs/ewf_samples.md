@@ -39,6 +39,15 @@ python run_computation.py
 
 - The Origin 24/7 SDK's Certificate module provides functionality for on-chain operations such as deploying contracts, issuing, transferring, and claiming certificates on the blockchain.
 
+### Origin 24/7 SDK Transfer
+- The Origin 24/7 SDK Transfer module enables the issuance and transfer of energy certificates on the blockchain.
+
+- The Transfer module integrates with Nest.js applications and requires TypeORM configuration.
+
+- Users can send generation events to the CQRS event bus, implement transfer site queries, and add validators for transfer validation.
+
+
+
 
 ## Claim Diagram
 The Claim Diagram illustrates the flow of computations and matching in a claim processing system. It consists of three main components: Computations, SpreadMatcher, and Main.
