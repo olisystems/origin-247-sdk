@@ -1,3 +1,19 @@
+## Prerequisites
+Before running the script, ensure that you have the following prerequisites:
+
+- The modules in EWF-24/7 SDK has been already built
+
+- TypeScript: Install TypeScript globally on your system.
+
+- ts-node: Install ts-node globally on your system. It allows executing TypeScript files directly without the need for compilation.
+
+- Python: Install Python globally on your system
+
+- Type 
+```python
+python run_computation.py
+```
+
 
 ## Product Overview
 - Energy Data Management: The SDK provides tools for securely storing, retrieving, and managing energy-related data, such as energy consumption, production, and certification information.
