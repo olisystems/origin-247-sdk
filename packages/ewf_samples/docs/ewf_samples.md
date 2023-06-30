@@ -1,5 +1,5 @@
 
-##Product Overview
+## Product Overview
 - Energy Data Management: The SDK provides tools for securely storing, retrieving, and managing energy-related data, such as energy consumption, production, and certification information.
 
 - Decentralized Energy Marketplaces: Developers can utilize the SDK to create decentralized energy marketplaces where energy producers and consumers can trade energy directly, bypassing intermediaries and enabling peer-to-peer energy transactions.
@@ -9,16 +9,16 @@
 - Smart Contract Interactions: Developers can interact with smart contracts deployed on the EWF platform using the SDK's APIs, making it easier to execute transactions, read data, and trigger contract events.
 
 
-##Claim Diagram
+## Claim Diagram
 The Claim Diagram illustrates the flow of computations and matching in a claim processing system. It consists of three main components: Computations, SpreadMatcher, and Main.
 
-###SpreadMatcher
+### SpreadMatcher
 The SpreadMatcher component is responsible for matching entity groups based on their priorities. It receives input from the EntityGroups and GroupPriority entities and generates a Result based on the matches found.
 
-###Computations
+### Computations
 The Computations component performs various computations using the BigNumber library. It takes two input numbers, Number1 and Number2, and performs addition (Sum) and multiplication (Product) operations using the BigNumber library. The results are then converted to strings using the toString function.
 
-###Main
+### Main
 The Main component orchestrates the overall claim processing flow. It calls the Computations component, passes the results to the SpreadMatcher component, and receives the matching Result. The Result is then processed in the ClaimCommands entity, where each match is mapped to a Claim Command. Finally, the generated Claim Commands are logged in the console.
 
 
@@ -63,7 +63,7 @@ The diagram depicts the flow of data and control between these components, indic
 
 
 
-##Transfer Diagram
+## Transfer Diagram
 The following diagram illustrates the flow of code execution and interactions between different components in the provided code snippet.
 
 ```mermaid
