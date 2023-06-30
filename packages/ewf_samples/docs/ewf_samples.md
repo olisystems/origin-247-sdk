@@ -175,9 +175,10 @@ This diagram showcases the sequence of operations and interactions among differe
 
 Please note that this diagram provides a high-level overview of the code flow, focusing on the major interactions. It may not capture all the internal details or implementation specifics.
 
-##Technologies in Energy Web 24/7 SDK
 
-####TYPEORM
+## Technologies in Energy Web 24/7 SDK
+
+### TYPEORM
 - TypeORM is an Object-Relational Mapping (ORM) library for TypeScript and JavaScript.
 
 - It allows you to work with databases using object-oriented programming principles, where database tables are represented as classes and database records are represented as objects.
@@ -186,7 +187,7 @@ Please note that this diagram provides a high-level overview of the code flow, f
 
 - It provides a powerful set of features including entity modeling, querying, data manipulation, and database migrations.
 
-###NestJS
+### NestJS
 - Nest.js is a progressive Node.js framework for building scalable and efficient server-side applications.
 
 - It follows the modular architecture pattern and is built with TypeScript.
