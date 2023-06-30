@@ -32,6 +32,14 @@ python run_computation.py
 - To use this package, you need a Nest.js application and a configured TypeORM setup. After installing the package, you import the ClaimModule into your application and add the module's entities to the TypeORM configuration.
 
 
+### Origin 24/7 SDK's Certificate 
+- The Origin 24/7 SDK's Certificate module allows for the deployment of contracts, issuance, transfer, and claiming of certificates. It handles transaction batching and enqueuing for optimal blockchain performance.
+
+- The module provides an off-chain implementation that stores data in a local database and synchronizes it with the blockchain upon request. This allows for immediate changes and flexibility in synchronization.
+
+- The Origin 24/7 SDK's Certificate module provides functionality for on-chain operations such as deploying contracts, issuing, transferring, and claiming certificates on the blockchain.
+
+
 ## Claim Diagram
 The Claim Diagram illustrates the flow of computations and matching in a claim processing system. It consists of three main components: Computations, SpreadMatcher, and Main.
 
