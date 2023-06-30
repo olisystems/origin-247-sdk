@@ -24,7 +24,7 @@ python run_computation.py
 
 - Smart Contract Interactions: Developers can interact with smart contracts deployed on the EWF platform using the SDK's APIs, making it easier to execute transactions, read data, and trigger contract events.
 
-### Claim Package
+### Origin 24/7 SDK Claim Package
 - Origin 24/7 SDK that provides functionality for matching energy generation with consumption and claiming certificates on the blockchain. It also includes features for storing matching results.
 
 - The package offers a ClaimFacade that can be injected into your service to perform matching and retrieve matching results. You can customize the claiming process by providing a matching algorithm and a customization function.
@@ -32,21 +32,26 @@ python run_computation.py
 - To use this package, you need a Nest.js application and a configured TypeORM setup. After installing the package, you import the ClaimModule into your application and add the module's entities to the TypeORM configuration.
 
 
-### Origin 24/7 SDK's Certificate 
+### Origin 24/7 SDK Certificate Package
 - The Origin 24/7 SDK's Certificate module allows for the deployment of contracts, issuance, transfer, and claiming of certificates. It handles transaction batching and enqueuing for optimal blockchain performance.
 
 - The module provides an off-chain implementation that stores data in a local database and synchronizes it with the blockchain upon request. This allows for immediate changes and flexibility in synchronization.
 
 - The Origin 24/7 SDK's Certificate module provides functionality for on-chain operations such as deploying contracts, issuing, transferring, and claiming certificates on the blockchain.
 
-### Origin 24/7 SDK Transfer
+### Origin 24/7 SDK Transfer Package
 - The Origin 24/7 SDK Transfer module enables the issuance and transfer of energy certificates on the blockchain.
 
 - The Transfer module integrates with Nest.js applications and requires TypeORM configuration.
 
 - Users can send generation events to the CQRS event bus, implement transfer site queries, and add validators for transfer validation.
 
+### Origin 24/7 SDK Energy Packege
+- The Energy API module is responsible for managing meter readings and creating precise proofs for the readings.
 
+- It is designed to be used with 24/7 applications that utilize the Origin SDK and other 24/7 packages.
+
+- The module stores the readings in InfluxDB and provides features such as batching readings for proof creation, queuing proof issuance to avoid conflicts, and handling errors during proof creation.
 
 
 ## Claim Diagram
