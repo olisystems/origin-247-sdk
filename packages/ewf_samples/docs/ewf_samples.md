@@ -9,7 +9,7 @@ Before running the script, ensure that you have the following prerequisites:
 
 - Python: Install Python globally on your system
 
-- Type 
+####To run this script type 
 ```python
 python run_computation.py
 ```
@@ -23,6 +23,13 @@ python run_computation.py
 - Energy Certificate Tracking: The SDK facilitates the tracking and verification of energy certificates, ensuring the transparency and integrity of renewable energy claims and transactions.
 
 - Smart Contract Interactions: Developers can interact with smart contracts deployed on the EWF platform using the SDK's APIs, making it easier to execute transactions, read data, and trigger contract events.
+
+### Claim Package
+- Origin 24/7 SDK that provides functionality for matching energy generation with consumption and claiming certificates on the blockchain. It also includes features for storing matching results.
+
+- The package offers a ClaimFacade that can be injected into your service to perform matching and retrieve matching results. You can customize the claiming process by providing a matching algorithm and a customization function.
+
+- To use this package, you need a Nest.js application and a configured TypeORM setup. After installing the package, you import the ClaimModule into your application and add the module's entities to the TypeORM configuration.
 
 
 ## Claim Diagram
