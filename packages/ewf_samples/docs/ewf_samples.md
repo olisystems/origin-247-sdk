@@ -174,3 +174,24 @@ This diagram showcases the sequence of operations and interactions among differe
 - ExecutionController: Serves as the main class that orchestrates the execution flow. It calls functions to perform energy transfer computations, big number computations, and generate claim commands. The results are logged using console.log().
 
 Please note that this diagram provides a high-level overview of the code flow, focusing on the major interactions. It may not capture all the internal details or implementation specifics.
+
+##Technologies in Energy Web 24/7 SDK
+
+####TYPEORM
+- TypeORM is an Object-Relational Mapping (ORM) library for TypeScript and JavaScript.
+
+- It allows you to work with databases using object-oriented programming principles, where database tables are represented as classes and database records are represented as objects.
+
+- TypeORM supports various database systems such as MySQL, PostgreSQL, SQLite, and more.
+
+- It provides a powerful set of features including entity modeling, querying, data manipulation, and database migrations.
+
+###NestJS
+- Nest.js is a progressive Node.js framework for building scalable and efficient server-side applications.
+
+- It follows the modular architecture pattern and is built with TypeScript.
+Nest.js combines elements of Object-Oriented Programming (OOP), Functional Programming (FP), and Reactive Programming.
+ 
+- It provides a set of abstractions and modules for building robust and maintainable applications.
+
+- Nest.js supports various features such as dependency injection, middleware, routing, authentication, and more.
