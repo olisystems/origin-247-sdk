@@ -31,6 +31,34 @@ python run_computation.py
 
 - To use this package, you need a Nest.js application and a configured TypeORM setup. After installing the package, you import the ClaimModule into your application and add the module's entities to the TypeORM configuration.
 
+```mermaid
+flowchart TD;
+
+subgraph ClaimService
+A[IClaimInput] -->|algorithmFn| B{algorithmFn}
+B --> C[filterZeroVolumeMatches]
+C -->|matches| D{claimCustomizationFn}
+D --> E{batchClaim}
+E --> F{Create Raport}
+F -->|filteredMatchingResult, timeframe| G[createRaport]
+G -->|raport| H{createLogs}
+H -->|raport| I(Return raport)
+end
+
+subgraph OffChainCertificateService
+V(OffChainCertificateService) -->|batchClaim| W{batchClaim}
+end
+
+A --> B
+B --> C
+C --> D
+D --> E
+E --> F
+F --> G
+G --> H
+H --> I
+```
+
 
 
 ### Origin 24/7 SDK Certificate Package
