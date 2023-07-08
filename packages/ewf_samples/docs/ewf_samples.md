@@ -31,6 +31,36 @@ python run_computation.py
 
 - To use this package, you need a Nest.js application and a configured TypeORM setup. After installing the package, you import the ClaimModule into your application and add the module's entities to the TypeORM configuration.
 
+```mermaid
+flowchart TD;
+
+subgraph Certificate Operations
+    A[Job(BlockchainAction)] -->|data.type| B{Action Type}
+    B -->|Issuance| C[issue(data.payload)]
+    B -->|Transfer| D[transfer(data.payload)]
+    B -->|Claim| E[claim(data.payload)]
+    B -->|BatchIssuance| F[batchIssue(data.payload)]
+    B -->|BatchTransfer| G[batchTransfer(data.payload)]
+    B -->|BatchClaim| H[batchClaim(data.payload)]
+end
+
+subgraph Action Results
+    C -->|issuanceTx| I{waitForNewCertificates}
+    I -->|certificateId| J(Return IssuanceActionResult)
+    D -->|transferTx| K{waitForTransaction}
+    K -->|transactionHash| L(Return TransferActionResult)
+    E -->|claimTx| M{waitForTransaction}
+    M -->|transactionHash| N(Return ClaimActionResult)
+    F -->|batchIssuanceTx| O{waitForNewCertificates}
+    O -->|certificateIds| P(Return BatchIssuanceActionResult)
+    G -->|batchTransferTx| Q{waitForTransaction}
+    Q -->|transactionHash| R(Return BatchTransferActionResult)
+    H -->|batchClaimTx| S{waitForTransaction}
+    S -->|transactionHash| T(Return BatchClaimActionResult)
+end
+```
+
+
 
 ### Origin 24/7 SDK Certificate Package
 - The Origin 24/7 SDK's Certificate module allows for the deployment of contracts, issuance, transfer, and claiming of certificates. It handles transaction batching and enqueuing for optimal blockchain performance.
