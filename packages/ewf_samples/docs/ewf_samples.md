@@ -48,15 +48,6 @@ end
 subgraph OffChainCertificateService
 V(OffChainCertificateService) -->|batchClaim| W{batchClaim}
 end
-
-A --> B
-B --> C
-C --> D
-D --> E
-E --> F
-F --> G
-G --> H
-H --> I
 ```
 
 
