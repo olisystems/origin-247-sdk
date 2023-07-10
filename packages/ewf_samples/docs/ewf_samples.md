@@ -54,7 +54,7 @@ graph TD;
 - The Origin 24/7 SDK's Certificate module provides functionality for on-chain operations such as deploying contracts, issuing, transferring, and claiming certificates on the blockchain.
 
 ```mermaid
-flowchart TD;
+graph TD;
 
 subgraph CertificateOperations
     A("Job(BlockchainAction)") -->|data.type| B("Action Type")
@@ -66,20 +66,6 @@ subgraph CertificateOperations
     B -->|BatchClaim| H("batchClaim(data.payload)")
 end
 
-subgraph ActionResults
-    C -->|issuanceTx| I("waitForNewCertificates")
-    I -->|certificateId| J("Return IssuanceActionResult")
-    D -->|transferTx| K("waitForTransaction")
-    K -->|transactionHash| L("Return TransferActionResult")
-    E -->|claimTx| M("waitForTransaction")
-    M -->|transactionHash| N("Return ClaimActionResult")
-    F -->|batchIssuanceTx| O("waitForNewCertificates")
-    O -->|certificateIds| P("Return BatchIssuanceActionResult")
-    G -->|batchTransferTx| Q("waitForTransaction")
-    Q -->|transactionHash| R("Return BatchTransferActionResult")
-    H -->|batchClaimTx| S("waitForTransaction")
-    S -->|transactionHash| T("Return BatchClaimActionResult")
-end
 ```
 
 ### Origin 24/7 SDK Transfer Package
@@ -92,106 +78,25 @@ end
 ```mermaid
 flowchart TD;
 
-subgraph Issue Service
-A(Issue Task) -->|Fetch Energy Transfer Requests| B{EnergyTransferRequestRepository}
-B -->|Issue Certificates| C[issueCertificates]
-C -->|Batch Issue| D((OffChainCertificateService.batchIssue))
-D -->|Results| E{Update ETR Status}
-E -->|Publish Event| F(EventBus)
-F -->|Loop| A
-end
+A["Issue Task"] -->|Fetch Requests| B["Request Repository"]
+B -->|Issue Certificates| C["Issue Certificates"]
+C -->|Batch Issue| D("Batch Issue")
+D -->|Update Status| E("Update Status")
+E -->|Publish Event| F["EventBus"]
+F -->|Loop| A["Issue Task"]
 
-subgraph Repositories
-G(EnergyTransferRequestRepository) -->|Find By State| B
-end
-
-subgraph OffChainCertificateService
-H(OffChainCertificateService) -->|Batch Issue| D
-end
-
-subgraph Events
-I(AwaitingIssuanceEvent) -->|Subscribe| F
-end
-
+G["Request Repository"] -->|Find By State| B
+H["Certificate Service"] -->|Batch Issue| D
+I["Awaiting Issuance Event"] -->|Subscribe| F
 A -->|Loop| I
+
 ```
-
-### Origin 24/7 SDK Energy Packege
-- The Energy API module is responsible for managing meter readings and creating precise proofs for the readings.
-
-- It is designed to be used with 24/7 applications that utilize the Origin SDK and other 24/7 packages.
-
-- The module stores the readings in InfluxDB and provides features such as batching readings for proof creation, queuing proof issuance to avoid conflicts, and handling errors during proof creation.
-
-```mermaid
-flowchart TD;
-
-subgraph EnergyApi247Facade
-A(Request Reading Proof) -->|Request Proof| B[ProofRequestService]
-C(Find Readings) -->|Find with Proof| D[ReadsService]
-B -->|Proof Response| E(Return Proof)
-D -->|Readings Response| F(Return Readings)
-end
-
-subgraph Dependencies
-G(ProofRequestService) -->|Request Reading Proof| A
-H(ReadsService) -->|Find Readings| C
-end
-
-A -->|Dependency| G
-C -->|Dependency| H
-```
-
-
-## Claim Diagram
-The Claim Diagram illustrates the flow of computations and matching in a claim processing system. It consists of three main components: Computations, SpreadMatcher, and Main.
-
-### SpreadMatcher
-The SpreadMatcher component is responsible for matching entity groups based on their priorities. It receives input from the EntityGroups and GroupPriority entities and generates a Result based on the matches found.
-
-### Computations
-The Computations component performs various computations using the BigNumber library. It takes two input numbers, Number1 and Number2, and performs addition (Sum) and multiplication (Product) operations using the BigNumber library. The results are then converted to strings using the toString function.
-
-### Main
-The Main component orchestrates the overall claim processing flow. It calls the Computations component, passes the results to the SpreadMatcher component, and receives the matching Result. The Result is then processed in the ClaimCommands entity, where each match is mapped to a Claim Command. Finally, the generated Claim Commands are logged in the console.
-
-
-```mermaid
-graph TD;
-
-subgraph Computations
-    A(Number1) -->|BigNumber| C(Sum)
-    B(Number2) -->|BigNumber| C
-    C -->|toString| D
-    A -->|BigNumber| E(Product)
-    B -->|BigNumber| E
-    E -->|toString| F(Product: 50)
-end
-
-subgraph SpreadMatcher
-    G(EntityGroups)
-    H(GroupPriority)
-    G -->|EntityGroups| J
-    H -->|GroupPriority| J
-end
-
-subgraph Main
-    I(performComputations) -->|Call function| Computations
-    J -->|SpreadMatcher| K(Result)
-    K -->|matches| L
-    L --> M(ClaimCommands)
-    M -->|map| N
-    N -->|Claim Commands| O
-    O --> P(Claim Commands)
-end
-
-Computations --> Q(Sum: 15, Product: 50)
-K --> R(Result)
-R -->|matches| S(Result: Matches)
-N -->|for each match| T
-T --> U(Claim Command)
-U
-```
+- Fetch Energy Transfer Requests from the E- nergyTransferRequestRepository.
+- Issue Certificates based on the fetched requests.
+- Perform a batch issue of the certificates using the OffChainCertificateService.
+- Update the status of the Energy Transfer Requests.
+- Publish an AwaitingIssuanceEvent using the EventBus.
+- Repeat the above steps in a loop for continuous processing.
 
 The diagram depicts the flow of data and control between these components, indicating the direction of the flow and the operations performed at each step.
 
@@ -207,50 +112,27 @@ subgraph EnergyTransferRequest
     A(createEtr) -->|attrs| B(EnergyTransferRequest.fromAttrs)
     B --> C(etr)
     C -->|toAttrs| D(etr.toAttrs)
-    D -->|state| E(Console.log)
-    E --> F(etr.issuanceStarted)
-    F -->|state| G(Console.log)
-    G --> H(etr.issuanceFinished)
-    H -->|state| I(Console.log)
-    I --> J(etr.certificateId)
-    J --> K(etr.persisted)
-    K -->|state| L(Console.log)
-    L --> M(etr.startValidation)
-    M -->|state| N(Console.log)
-    N --> O(etr.updateValidationStatus)
-    O -->|state| P(Console.log)
-    P --> Q(etr.transferStarted)
-    Q -->|state| R(Console.log)
-    R --> S(etr.transferFinished)
-    S -->|state| T(Console.log)
-end
+    D -->|state| E(etr.issuanceStarted)
+    E -->|state| F(etr.issuanceFinished)
+    F -->|state| G(etr.certificateId)
+    G -->|state| H(etr.persisted)
+    H -->|state| I(etr.startValidation)
+    I -->|state| J(etr.updateValidationStatus)
+    J -->|state| K(etr.transferStarted)
+    K -->|state| L(etr.transferFinished)
+end;
 
-subgraph BigNumber
-    U(Number1) -->|BigNumber| V(BigNumber.from)
-    V --> W(number1)
-    W -->|add| X(sum)
-    W -->|mul| Y(product)
-    X --> Z(Console.log)
-    Y --> AA(Console.log)
-end
-
-subgraph ClaimCommands
-    AB(claimCommands) --> AC(Console.log)
-    AC --> AD(Console.log)
-end
-
-subgraph ExecutionController
-    AE(performEnergyTransferComputations) --> EnergyTransferRequest
-    AE --> AF(performBigNumberComputations)
-    AE --> AG(claimCommands)
-    AF --> BigNumber
-    AG -->ClaimCommands
-    AG --> AH(Console.log)
-end
-
-AE --> AI(construct TestClass)
-AI --> AJ(run)
 ```
+
+- The createEtr function takes in attributes and creates an EnergyTransferRequest.
+- The EnergyTransferRequest instance is then processed to extract toAttrs.
+- The state of the EnergyTransferRequest is logged as issuanceStarted, indicating the start of the issuance process. Once the issuance is finished, the state is logged as issuanceFinished.
+- The certificate ID associated with the EnergyTransferRequest is logged.
+- The EnergyTransferRequest is marked as persisted.
+- The start validation process is initiated for the EnergyTransferRequest.
+- The validation status is updated for the EnergyTransferRequest.
+- The transfer process is started for the EnergyTransferRequest.
+- Finally, the transfer is marked as finished for the EnergyTransferRequest.
 
 This diagram showcases the sequence of operations and interactions among different components in the code. The key components are:
 
