@@ -139,6 +139,25 @@ A -->|Loop| I
 
 - The module stores the readings in InfluxDB and provides features such as batching readings for proof creation, queuing proof issuance to avoid conflicts, and handling errors during proof creation.
 
+```mermaid
+flowchart TD;
+
+subgraph EnergyApi247Facade
+A(Request Reading Proof) -->|Request Proof| B[ProofRequestService]
+C(Find Readings) -->|Find with Proof| D[ReadsService]
+B -->|Proof Response| E(Return Proof)
+D -->|Readings Response| F(Return Readings)
+end
+
+subgraph Dependencies
+G(ProofRequestService) -->|Request Reading Proof| A
+H(ReadsService) -->|Find Readings| C
+end
+
+A -->|Dependency| G
+C -->|Dependency| H
+```
+
 
 ## Claim Diagram
 The Claim Diagram illustrates the flow of computations and matching in a claim processing system. It consists of three main components: Computations, SpreadMatcher, and Main.
