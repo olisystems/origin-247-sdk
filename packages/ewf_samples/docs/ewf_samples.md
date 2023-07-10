@@ -105,6 +105,33 @@ end
 
 - Users can send generation events to the CQRS event bus, implement transfer site queries, and add validators for transfer validation.
 
+```mermaid
+flowchart TD;
+
+subgraph Issue Service
+A(Issue Task) -->|Fetch Energy Transfer Requests| B{EnergyTransferRequestRepository}
+B -->|Issue Certificates| C[issueCertificates]
+C -->|Batch Issue| D((OffChainCertificateService.batchIssue))
+D -->|Results| E{Update ETR Status}
+E -->|Publish Event| F(EventBus)
+F -->|Loop| A
+end
+
+subgraph Repositories
+G(EnergyTransferRequestRepository) -->|Find By State| B
+end
+
+subgraph OffChainCertificateService
+H(OffChainCertificateService) -->|Batch Issue| D
+end
+
+subgraph Events
+I(AwaitingIssuanceEvent) -->|Subscribe| F
+end
+
+A -->|Loop| I
+```
+
 ### Origin 24/7 SDK Energy Packege
 - The Energy API module is responsible for managing meter readings and creating precise proofs for the readings.
 
